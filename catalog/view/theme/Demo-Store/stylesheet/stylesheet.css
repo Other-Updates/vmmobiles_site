@@ -8337,4 +8337,28 @@ footer{ margin-top: 25px; }
 ._14cfVK tr:nth-child(odd) {background: #FFF}
 #filter-group3 .checkbox, .productpage .special-price, .product-thumb .price {font-family: cursive;}
 /********** End Testimonial Cms BLock  **********/
-
+.form-group.qty #button-buy{
+	margin-left: 10px;
+	padding: 8px 19px;
+	color: #111;
+    background: #fcc902;
+}
+.form-group.qty #button-buy:hover{
+    color: #fff;
+    background: #293544;
+}
+.buynow-icon{
+	font-size: 21px;
+    margin-right: 10px;
+	padding-top: 2px;
+}
+.img-thumbnail.text-center img.img-responsive {
+    width: 281px;
+	margin-bottom: 10px;
+}
+.img-thumbnail.text-center{
+	margin-bottom:25px !important;
+}
+.img-thumbnail.text-center a {
+    font-weight: 600;
+}
