@@ -8362,3 +8362,6 @@ footer{ margin-top: 25px; }
 .img-thumbnail.text-center a {
     font-weight: 600;
 }
+.row.category_thumb .col-sm-2.category_img{
+	display:none
+}
