@@ -8339,9 +8339,10 @@ footer{ margin-top: 25px; }
 /********** End Testimonial Cms BLock  **********/
 .form-group.qty #button-buy{
 	margin-left: 10px;
-	padding: 8px 19px;
+	padding: 10px 25px 10px 25px;
 	color: #111;
     background: #fcc902;
+	font-size: 14px;
 }
 .form-group.qty #button-buy:hover{
     color: #fff;
@@ -8364,4 +8365,15 @@ footer{ margin-top: 25px; }
 }
 .row.category_thumb .col-sm-2.category_img{
 	display:none
+}
+button#button-buy::before {
+    content: "\f218";
+    font-family: 'FontAwesome';
+    font-weight: 100;
+    font-size: 20px;
+    margin-right: 9px;
+	/*position: absolute;*/
+}
+.d-none{
+	display:none !important;
 }
