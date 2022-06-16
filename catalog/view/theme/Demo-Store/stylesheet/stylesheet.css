@@ -1,6 +1,6 @@
 body {
 	color: #666666;
-    font-family: 'Poppins', Helvetica, sans-serif;
+    font-family: Roboto,Arial,sans-serif;
     font-size: 13px;
     font-weight: 400;
     line-height: 22px;
@@ -361,7 +361,7 @@ div.required .control-label:before {
 	display: none;
 }
 .productpage .special-price {
-	font-size: 17px;
+	font-size: 24px;
     display: inline-block;
     font-weight: 600;
     line-height: 20px;
@@ -5352,8 +5352,7 @@ h2.price {margin: 0;}
 .productpage .productpage_details {  float: left;    margin-top:0px;    width: 100%;}
 .productpage #tabs_info {
     background: #ffffff none repeat scroll 0 0;
-    margin: 30px 0;
-	padding:30px;
+    margin: 15px 0;
 }
 .productpage .productpage_details .product-left {
     padding: 0;
@@ -6658,8 +6657,8 @@ background:#f3f3f3 !important;
 }
 #form-review > h3{font-size:16px; font-weight:500;}
 #content.productpage .product-title {
-	font-size: 18px;
-    font-weight: 600;
+	font-size: 22px;
+    font-weight: 400;
     line-height: 26px;
     margin: 0px 0 10px 0px;
     padding: 0px 0px 10px;
@@ -8335,7 +8334,7 @@ footer{ margin-top: 25px; }
 }
 ._14cfVK tr:nth-child(even) {background: #e9e9e9}
 ._14cfVK tr:nth-child(odd) {background: #FFF}
-#filter-group3 .checkbox, .productpage .special-price, .product-thumb .price {font-family: cursive;}
+/*#filter-group3 .checkbox, .productpage .special-price, .product-thumb .price {font-family: cursive;}*/
 /********** End Testimonial Cms BLock  **********/
 .form-group.qty #button-buy{
 	margin-left: 10px;
@@ -8376,4 +8375,25 @@ button#button-buy::before {
 }
 .d-none{
 	display:none !important;
+}
+.productpage .col-sm-4.product-left{
+	position: sticky;
+	top:0px
+}
+.layout-1 #content.productpage{
+	padding-top: 0;
+}
+.product-layout.product-list .product-thumb h4{
+	font-size: 18px;
+    font-weight: 500;
+}
+.product-layout.product-list .product-thumb .price{
+	font-size: 25px;
+    font-weight: 500;
+}
+@media (max-width: 767px){
+	.productpage .col-sm-4.product-left{
+		position: relative;
+	}
+
 }

@@ -1014,6 +1014,9 @@ pre code {
     .col-sm-7 {
         width: 58.333333333333336%;
     }
+    .productpage .col-sm-7.product-right {
+        width: 64%;
+    }
 
     .col-sm-6 {
         width: 50%;
