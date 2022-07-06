@@ -8427,3 +8427,6 @@ div#information-contact h3, div#information-contact div.panel-group#accordion{
 .fa-cart-arrow-down:before{
 	content:none;
 }
+/* div#tab-specification .table.table-bordered thead, div#tab-specification .table.table-bordered tbody tr td:first-child {
+    display: none;
+} */

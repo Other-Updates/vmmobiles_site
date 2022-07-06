@@ -221,6 +221,7 @@ class ControllerProductCategory extends Controller {
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
+					'attribute_groups'       => $this->model_catalog_product->getProductAttributes($result['product_id']),
 					'name'        => $result['name'],
 					'qty'    	  => $result['quantity'],
 					'brand'        => $result['manufacturer'],
