@@ -362,7 +362,7 @@ class ModelCatalogProduct extends Model {
 				$product_attribute_data[] = array(
 					'attribute_id' => $product_attribute['attribute_id'],
 					'name'         => $product_attribute['name'],
-					'text'         => $product_attribute['text']
+					'text'         => html_entity_decode($product_attribute['text'], ENT_QUOTES, 'UTF-8')
 				);
 			}
 
