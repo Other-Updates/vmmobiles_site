@@ -40,7 +40,7 @@
                    
             <div class="img-thumbnail text-center" style="margin-bottom: 10px;">
             {% if category.thumb %}
-            <a href="{{ category.href }}"><img src="{{ category.thumb }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-responsive" /></a>
+            <img src="{{ category.thumb }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-responsive" />
              {% endif %}
             <a href="{{ category.href }}">{{ category.name }}</a>
             </div>
