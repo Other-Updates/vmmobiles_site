@@ -39,10 +39,11 @@
             {% for category in categories %}
                    
             <div class="img-thumbnail text-center" style="margin-bottom: 10px;">
+            <a href="{{ category.href }}">
             {% if category.thumb %}
             <img src="{{ category.thumb }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-responsive" />
              {% endif %}
-            <a href="{{ category.href }}">{{ category.name }}</a>
+            {{ category.name }}</a>
             </div>
         
             {% endfor %}
