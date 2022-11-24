@@ -8507,6 +8507,12 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 .product-block .quickview-button .quickbox:hover{
 	background-color: #fcc902;
 }
+@media (max-width: 1440px){
+
+}
+.fixed-footer{
+	display: none;
+}
 @media (max-width: 568px){
 	.category_thumb #tab-specification{
 		display:none
@@ -8522,4 +8528,116 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 	.cat-delivery {
 		display: none;
 	}
+	.col-sm-3.header-logo img{
+		margin-top: 2px;
+	}
+	.col-sm-3.header-logo{
+		margin: 0;
+		width: 25%;
+		display: flex;
+		text-align: left;
+	}
+	.col-sm-5.header_search{
+		display: flex;
+		margin: 0;
+		width: 75%;
+		padding: 0;
+	}
+	#searchbox{
+		margin-left: auto;
+	}
+	#searchbox .search_box{
+		display: none;
+	}
+	#searchbox input{
+		border-top-left-radius: 90px;
+	    border-bottom-left-radius: 90px;
+		width: 200px;
+	}
+	.header_top{
+		position: fixed;
+		z-index: 100;
+	}
+	#content, .content-top-breadcum{
+		margin-top: 76px;
+	}
+	.image-additional .slider-item{
+		width: 90px;
+	}
+	.top_button {
+		bottom: 80px;
+	}
+	.bottomfooter{
+		margin-bottom: 60px;
+	}
+	.fixed-footer{
+		background-color: #2874f0;
+		text-align: center;
+		padding: 15px 0;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		height: 60px;
+		width: 100%;
+		z-index: 100;
+		display: block;
+	}
+	.fixed-footer .fa, .fixed-footer #res-menu .fa {
+		font-size: 30px;
+		color: #fff;
+	}
+	.fixed-footer .main-menu, .fixed-footer .header_center{
+		float: none;
+	}
+	.fixed-footer #res-menu .nav-responsive{
+		text-align: center;
+	}
+	.fixed-footer #res-menu{
+		margin: 0;
+		text-align: left;
+	}
+	#res-menu.responsive-menu .main-navigation.active .menu.expandable {
+		border-bottom: 1px solid #dddddd;
+		margin-bottom: 10px;
+		padding: 12px 0px 12px 10px;
+		position: sticky;
+		background-color: #fff;
+		top: 0;
+		z-index: 0;
+		cursor: pointer;
+	}
+	#res-menu.responsive-menu .main-navigation.active .menu.expandable span {
+		font-size: 15px;
+		text-align: left;
+		line-height: 26px;
+		font-weight: 600;
+		color: #000000;
+		display: block;
+	}
+	.menu-active::before{
+		height: 100vh;
+	}
+	#information-information #content, #account-return #content, #information-sitemap #content, #account-account #content, #account-voucher #content, #account-wishlist #content, #account-order #content, #account-edit #content, #account-newsletter #content, #account-password #content, #account-address #content, #account-recurring #content, #account-reward #content, #account-transaction #content, #checkout-checkout #content, #checkout-cart #content, #account-register #content{
+		width: 100%;
+		margin: 0;
+	}
+	.cb-div{
+		display: inline-block;
+		width: 100%;
+		margin-top: 15px;
+	}
+	.product-detail-left .form-group.qty .cb-div #button-cart{
+		float: left;
+	}
+	.product-detail-left .form-group.qty .cb-div #button-buy{
+		float: right;
+		margin-top: 0;
+	}
+	
+}
+.header_bottom_cover.dnone{
+	display: none;
+}
+.responsive-menu li.toplink{
+	display: none;
 }

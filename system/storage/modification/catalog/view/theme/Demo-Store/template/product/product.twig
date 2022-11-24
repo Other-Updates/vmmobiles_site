@@ -259,8 +259,10 @@
               <label class="control-label" for="input-quantity">{{ entry_qty }}</label>
               <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />
               <input type="hidden" name="product_id" value="{{ product_id }}" />
-              <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
-<button type="button" id="button-buy" data-loading-text=""  class="btn btn-primary btn-lg btn-block">{{ buy_now }}</button>
+              <div class="cb-div">
+                <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
+                <button type="button" id="button-buy" data-loading-text=""  class="btn btn-primary btn-lg btn-block">{{ buy_now }}</button>
+              </div>
               {% else %}
               <button type="button" id="button" onclick="alert('{{text_outstock}}');" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block disabled">{{ text_outstock }}</button> 
               {% endif %}
