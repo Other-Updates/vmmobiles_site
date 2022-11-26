@@ -16,6 +16,15 @@ class ControllerCommonHome extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
+		// login check to pop up
+		if ($this->customer->isLogged()) {
+			$data['login_check']='Login';
+		} else {
+            $data['login_check']='';
+		}
+
+		$data['action'] = $this->url->link('account/login', '', true);
+
 		$this->response->setOutput($this->load->view('common/home', $data));
 	}
 }

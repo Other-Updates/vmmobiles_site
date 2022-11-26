@@ -155,6 +155,30 @@ class ControllerAccountLogin extends Controller {
 		$this->response->setOutput($this->load->view('account/login', $data));
 	}
 
+	public function otpUpdate(){
+		$iOtp=rand(0000,9999);
+		$user_number=$_POST['mobile_no'];
+		$this->load->model('account/customer');
+		$otp_login=$this->model_account_customer->otp_update_model($iOtp,$user_number);
+
+		
+		
+			$this->response->addHeader('Content-Type: application/json');
+			$json['success']= 'success';
+			$this->response->setOutput(json_encode($json));
+		
+
+	}
+
+
+	public function custom_login(){
+		$email=$_POST['mobile_no'];
+		$password=$_POST['user_otp'];
+		$this->load->model('account/customer');
+		$this->model_account_customer->custom_login1($email,$password);
+	}
+
+
 	protected function validate() {
 		// Check how many login attempts have been made.
 		$login_info = $this->model_account_customer->getLoginAttempts($this->request->post['email']);

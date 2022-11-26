@@ -11,7 +11,61 @@
     <div id="content" class="{{ class }}">
         <div class="content-top">   
              {{ content_top }}
-        </div>
+             {% if login_check %}
+
+             {% else %}
+                <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+    
+                                </button>
+                            </div>
+                            <form action="{{ action }}" method="post" enctype="multipart/form-data">
+                            <div class="modal-body mx-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-email">Mobile No</label>
+                                    <input type="text" name="email" value="" placeholder="" id="input-email" class="form-control user_account_mobile" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary get_otp" value="Get Otp" /> 
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="modal fade" id="modalLoginOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+    
+                                </button>
+                            </div>
+                            <form action="{{ action }}" method="post" enctype="multipart/form-data">
+                            <div class="modal-body mx-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-password">Otp</label>
+                                    <input type="password" name="password" value="" placeholder="" id="input-password" class="form-control user_otp" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary otp_login" value="Login" /> 
+                                </div>
+                            </div>
+                                
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                 </div>
+             {% endif %}
+            </div>
         <div class="container">
             <div class="row">
     {{ content_bottom }}
@@ -22,6 +76,37 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+    $(window).on('load', function() {
+        $('#modalLoginForm').modal('show');
+    });
+    $('.get_otp').click(()=>{
+        var mobile_no=$('.user_account_mobile').val();
+                $.ajax({
+                    type: "POST",
+                    url: "index.php?route=account/login/otpUpdate",
+                    dataType: 'json',
+                    data:{mobile_no:mobile_no},
+                    success: function(data){
+                        // console.log(data['success']);
+                        if(data['success']==='success'){
+                             $('#modalLoginForm').modal('hide');
+                             $('#modalLoginOtp').modal('show');
+                            $('.otp_login').click(()=>{
+                                 var user_otp=$('.user_otp').val();
+                                $.ajax({
+                                    type: "POST",
+                                    url: "index.php?route=account/login/custom_login",
+                                    dataType: 'json',
+                                    data:{mobile_no:mobile_no,user_otp:user_otp},
+                                    success: function(data){
+                                        
+                                    }
+                                });
+                            })
+                        }
+                    }
+                });
+    });
     $('.service-area-carousel').owlCarousel({
             items: 4,
             autoPlay: true,
