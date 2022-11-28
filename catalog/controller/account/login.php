@@ -156,18 +156,22 @@ class ControllerAccountLogin extends Controller {
 	}
 
 	public function otpUpdate(){
-		$iOtp=rand(0000,9999);
+		$iOtp=rand(1000,9999);
 		$user_number=$_POST['mobile_no'];
 		$this->load->model('account/customer');
-		$otp_login=$this->model_account_customer->otp_update_model($iOtp,$user_number);
-
-		
-		
+		$customer_valid=$this->model_account_customer->check_customer_valid($user_number);
+		if(!empty($customer_valid)){
+			$otp_login=$this->model_account_customer->otp_update_model($iOtp,$user_number);
 			$this->response->addHeader('Content-Type: application/json');
-			$json['success']= 'success';
+			$json['status']= 'success';
 			$this->response->setOutput(json_encode($json));
-		
-
+		}
+		else
+		{
+			$this->response->addHeader('Content-Type: application/json');
+			$json['status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
 	}
 
 
@@ -175,7 +179,52 @@ class ControllerAccountLogin extends Controller {
 		$email=$_POST['mobile_no'];
 		$password=$_POST['user_otp'];
 		$this->load->model('account/customer');
-		$this->model_account_customer->custom_login1($email,$password);
+		$login_check=$this->model_account_customer->custom_login1($email,$password);
+		if($login_check==true){
+			$json['login_status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$json['login_status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+	}
+
+	public function otp_check_registeration(){
+		$user_number1=$_POST['mobile_no'];
+		$this->load->model('account/customer');
+		$customer_valid=$this->model_account_customer->check_customer_valid($user_number1);
+		if(!empty($customer_valid))
+		{
+			$this->response->addHeader('Content-Type: application/json');
+			$json['status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$iOtp=rand(1000,9999);
+			$otp_login=$this->model_account_customer->otp_register_update_model($iOtp,$user_number1);
+			$this->response->addHeader('Content-Type: application/json');
+			$json['status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+	}
+	public function otp_verification_registeration(){
+		$email=$_POST['mobile_no'];
+		$password=$_POST['iOtp'];
+		$this->load->model('account/customer');
+		$login_check=$this->model_account_customer->custom_reg_check($email,$password);
+		if($login_check==true){
+			$json['login_status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$json['login_status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+
 	}
 
 

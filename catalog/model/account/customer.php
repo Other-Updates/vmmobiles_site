@@ -150,8 +150,8 @@ class ModelAccountCustomer extends Model {
 		return $query->row;	
 	}
 	public function otp_update_model($iOtp,$mobile_number){
-		$this->db->query("UPDATE " . DB_PREFIX . "customer SET iOtp = '".$iOtp."' WHERE telephone = '" . $mobile_number . "'");
-
+		$query=$this->db->query("UPDATE " . DB_PREFIX . "customer SET iOtp = '".$iOtp."' WHERE telephone = '" . $mobile_number . "'");
+		
 		// $manufacturer_id = $this->db->getLastId();
 		
 		// print_r($manufacturer_id);
@@ -159,10 +159,24 @@ class ModelAccountCustomer extends Model {
 		return $query->row;	
 	}
 
+	public function otp_register_update_model($iOtp,$mobile_number){
+		// print_r($mobile_number);
+		// print_r($iOtp);
+		// exit;
+		// $sql="INSERT INTO " . DB_PREFIX . "customer_temp SET iMobile_num = '" . (int)$mobile_number . "', iOtp = '" . $iOtp . "'";
+		// print_r($sql);
+		// exit;
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_temp SET iMobile_num = '" . $mobile_number . "', iOtp = '" . $iOtp . "'");
+	
+	}
+
+	
+
 	
 	public function check_customer_valid($id){
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `telephone` = '" . $id . "'");
 
+		
 		return $query->row;	
 
 	}
@@ -191,6 +205,22 @@ class ModelAccountCustomer extends Model {
 
 			return true;
 		} else {
+			return false;
+		}
+	}
+
+	public function custom_reg_check($mobile, $iOtp, $override = false){
+		if ($override) {
+			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_temp WHERE iMobile_num = '" . $mobile . "' ");
+		} else {
+			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_temp WHERE iMobile_num = '" . $mobile . "' AND  iOtp = '" . $iOtp . "'");
+		}
+
+		if($customer_query->num_rows) {
+			return true;
+		}
+		else
+		{
 			return false;
 		}
 	}

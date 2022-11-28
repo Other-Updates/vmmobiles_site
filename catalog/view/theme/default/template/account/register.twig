@@ -19,7 +19,7 @@
     <div id="content" class="{{ class }}">{{ content_top }}
       <h1>{{ heading_title }}</h1>
       <p>{{ text_account_already }}</p>
-      <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <form action="" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return check_Otp_verification();">
         <fieldset id="account">
           <legend>{{ text_your_details }}</legend>
           <div class="form-group required" style="display: {% if customer_groups|length > 1 %} block {% else %} none {% endif %};">
@@ -67,10 +67,13 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
             <div class="col-sm-10">
-              <input type="tel" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control" />
+              <input type="tel" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control mobile_number" />
               {% if error_telephone %}
               <div class="text-danger">{{ error_telephone }}</div>
               {% endif %} </div>
+          </div>
+          <div class="form-group">
+              <input type="button" class="btn btn-primary get_otp" value="Get Otp" /> 
           </div>
           {% for custom_field in custom_fields %}
           {% if custom_field.type == 'select' %}
@@ -300,8 +303,114 @@
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
+<div class="modal fade" id="modalLoginOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="form-group">
+                    <label class="control-label" for="input-password">Otp</label>
+                    <input type="password" name="password" value="" placeholder="" id="input-password" class="form-control user_otp" />
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary otp_login" value="Login" /> 
+                </div>
+            </div>
+                
+          </div>
+      </div>
+  </div>
 <script type="text/javascript"><!--
 // Sort the custom fields
+// $('form').submit(function() {
+//   alert('123');
+//     return checkForTheCondition();
+// });
+
+function check_Otp_verification(){
+    
+}
+
+$('.get_otp').click(()=>{
+      var mobile_no=$('.mobile_number').val();
+      $.ajax({
+          type: "POST",
+          url: "index.php?route=account/login/otp_check_registeration",
+          dataType: 'json',
+          data:{mobile_no:mobile_no},
+          success: function(data){
+            console.log(data);
+            if(data['status']==='success'){
+              Swal.fire({
+                title: 'Already Register',
+                  text: "Mobile Number Already Registered",
+                  icon: 'warning',
+                  // showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  // confirmButtonText: 'Yes, delete it!'
+              });
+                   
+            }
+            else
+            {
+                $('#modalLoginOtp').modal('show'); 
+                $('.otp_login').click(()=>{
+                  var iOtp=$('.user_otp').val();
+                  $.ajax({
+                    type: "POST",
+                    url: "index.php?route=account/login/otp_verification_registeration",
+                    dataType: 'json',
+                    data:{mobile_no:mobile_no,iOtp:iOtp},
+                    success: function(regdata){
+                        console.log(regdata);
+                        if(regdata['login_status']==='success'){
+                          Swal.fire({
+                                title: 'Register Verification',
+                                text: "Mobile Otp verification Succesfully",
+                                icon: 'success',
+                                // showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                // confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // location.reload();
+                                    $('#modalLoginOtp').modal('hide'); 
+                                }
+                            });
+                    }
+                    else{
+                          Swal.fire({
+                                title: 'Register Verification',
+                                text: "Mobile Otp verification Failed",
+                                icon: 'error',
+                                // showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                // confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                    }
+                    }
+                });
+                });
+            }
+          }
+      });
+
+});
+
+
 $('#account .form-group[data-sort]').detach().each(function() {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#account .form-group').length) {
 		$('#account .form-group').eq($(this).attr('data-sort')).before(this);
@@ -416,4 +525,7 @@ $('.datetime').datetimepicker({
 	pickTime: true
 });
 //--></script> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.10/sweetalert2.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.10/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.10/sweetalert2.js"></script>
 {{ footer }} 
