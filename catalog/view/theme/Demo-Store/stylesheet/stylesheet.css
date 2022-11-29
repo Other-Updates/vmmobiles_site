@@ -8670,7 +8670,7 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 .loginotp .control-label{
 	font-size: 14px;
 }
-.loginotp .send-otp, .loginotp .verify-otp{
+.loginotp .send-otp, .loginotp .otp_login{
 	margin-left: 10px;
 	padding: 10px 25px 10px 25px;
 	color: #111;
@@ -8681,7 +8681,7 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 .loginotp .btn{
 	border-radius: 6px;
 }
-.loginotp .send-otp:hover, .loginotp .verify-otp:hover{
+.loginotp .send-otp:hover, .loginotp .otp_login:hover{
     color: #fff;
     background: #293544;
 }
