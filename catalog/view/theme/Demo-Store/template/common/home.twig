@@ -81,7 +81,7 @@ $(document).ready(function(){
     $(window).on('load', function() {
         $('#modalLoginForm').modal('show');
     });
-    $('.get_otp').click(()=>{
+    $('.get_otp,.resend_otp').click(()=>{
         var mobile_no=$('.user_account_mobile').val();
                 $.ajax({
                     type: "POST",
