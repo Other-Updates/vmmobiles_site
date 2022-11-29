@@ -204,6 +204,11 @@ class ControllerAccountLogin extends Controller {
 		else
 		{
 			$iOtp=rand(1000,9999);
+			$check_reg_num=$this->model_account_customer->check_otp_register_number($user_number1);
+			if(!empty($check_reg_num))
+			{
+				$this->model_account_customer->delete_previous_number($check_reg_num['iMobile_num']);
+			}
 			$otp_login=$this->model_account_customer->otp_register_update_model($iOtp,$user_number1);
 			$this->response->addHeader('Content-Type: application/json');
 			$json['status']= 'failed';

@@ -224,4 +224,11 @@ class ModelAccountCustomer extends Model {
 			return false;
 		}
 	}
+	public function check_otp_register_number($mobile){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_temp` WHERE `iMobile_num` = '" . $mobile . "'");
+		return $query->row;	
+	}
+	public function delete_previous_number($mobile){
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_temp` WHERE iMobile_num = '" . $mobile . "'");
+	}
 }

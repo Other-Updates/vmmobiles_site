@@ -289,7 +289,7 @@
             <input type="checkbox" name="agree" value="1" />
             {% endif %}
             &nbsp;
-            <input type="submit" value="{{ button_continue }}" class="btn btn-primary" />
+            <input type="submit" value="{{ button_continue }}" class="btn btn-primary btn_submit_continue" />
           </div>
         </div>
         {% else %}
@@ -334,9 +334,11 @@
 // });
 
 function check_Otp_verification(){
-    
+ 
 }
-
+$( document ).ready(function() {
+    $('.btn_submit_continue').attr('disabled','disabled');
+});
 $('.get_otp').click(()=>{
       var mobile_no=$('.mobile_number').val();
       $.ajax({
@@ -383,6 +385,12 @@ $('.get_otp').click(()=>{
                                 if (result.isConfirmed) {
                                     // location.reload();
                                     $('#modalLoginOtp').modal('hide'); 
+                                    $('.btn_submit_continue').removeAttr('disabled');
+                                      // $.ajax({
+                                      //    type: "POST",
+                                      //     url: "index.php?route=account/login/delete_otp_mobile",
+                                      //     dataType: 'json',
+                                      // })
                                 }
                             });
                     }
