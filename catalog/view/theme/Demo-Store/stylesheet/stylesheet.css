@@ -8641,3 +8641,66 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 .responsive-menu li.toplink{
 	display: none;
 }
+.loginotp .modal-content{
+	border-radius: 8px;
+    background: #fff;
+	width: 100%;
+}
+.loginotp .modal-header{
+	background: none;
+	padding-bottom: 0;
+}
+.loginotp .modal-header h4 {
+    font-size: 24px;
+    text-transform: none;
+    color: #000;
+}
+.loginotp .modal-header .close{
+	top: 16px;
+    position: absolute;
+    right: 18px;
+	margin: 0;
+	color: #000;
+}
+.loginotp .form-control{
+	border-radius: 6px;
+	color: #000;
+    font-size: 14px;
+}
+.loginotp .control-label{
+	font-size: 14px;
+}
+.loginotp .send-otp, .loginotp .verify-otp{
+	margin-left: 10px;
+	padding: 10px 25px 10px 25px;
+	color: #111;
+    background: #fcc902;
+	font-size: 14px;
+	float: right;
+}
+.loginotp .btn{
+	border-radius: 6px;
+}
+.loginotp .send-otp:hover, .loginotp .verify-otp:hover{
+    color: #fff;
+    background: #293544;
+}
+.loginotp .skip_login{
+	font-size: 14px;
+}
+.loginotp .modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+@media (min-width: 768px){
+	.loginotp .modal-dialog{
+		width: 480px;
+	}
+	.loginotp .modal-dialog {
+		min-height: calc(100% - 3.5rem);
+	}
+	.modal.loginotp{
+		overflow: hidden;
+	}
+}
