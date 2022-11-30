@@ -156,10 +156,33 @@ class ControllerAccountLogin extends Controller {
 	}
 
 	public function otpUpdate(){
+		$username=TEXT_LOCAL_USER;
+		$password=TEXT_LOCAL_PASS;
+
+
 		$iOtp=rand(1000,9999);
 		$user_number=$_POST['mobile_no'];
 		$this->load->model('account/customer');
 		$customer_valid=$this->model_account_customer->check_customer_valid($user_number);
+
+
+		$sender = "CICSTO"; // This is who the message appears to be from.
+        $numbers = "9578877625"; // A single number or a comma-seperated list of numbers
+		// $numbers=$user_number;
+        $message=$iOtp." is your OTP to register with CoolinCool Store, For any help, please contact us at +91 9655007712";
+
+		// 612 chars or less
+        // A single number or a comma-seperated list of numbers
+        $message = urlencode($message);
+        $post_data = "username=".$username."&hash=".$password."&message=".$message."&sender=".$sender."&numbers=".$numbers;
+        $ch = curl_init('https://api.textlocal.in/send/?');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch); // This is the result from the API
+        curl_close($ch);
+
+
 		if(!empty($customer_valid)){
 			$otp_login=$this->model_account_customer->otp_update_model($iOtp,$user_number);
 			$this->response->addHeader('Content-Type: application/json');
@@ -203,7 +226,28 @@ class ControllerAccountLogin extends Controller {
 		}
 		else
 		{
+			$username=TEXT_LOCAL_USER;
+			$password=TEXT_LOCAL_PASS;
 			$iOtp=rand(1000,9999);
+
+
+			$sender = "CICSTO"; // This is who the message appears to be from.
+			$numbers = "9578877625"; // A single number or a comma-seperated list of numbers
+			// $numbers=$user_number1;
+			$message=$iOtp." is your OTP to register with CoolinCool Store, For any help, please contact us at +91 9655007712";
+
+			// 612 chars or less
+			// A single number or a comma-seperated list of numbers
+			$message = urlencode($message);
+			$post_data = "username=".$username."&hash=".$password."&message=".$message."&sender=".$sender."&numbers=".$numbers;
+			$ch = curl_init('https://api.textlocal.in/send/?');
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$result = curl_exec($ch); // This is the result from the API
+			curl_close($ch);
+
+
 			$check_reg_num=$this->model_account_customer->check_otp_register_number($user_number1);
 			if(!empty($check_reg_num))
 			{
