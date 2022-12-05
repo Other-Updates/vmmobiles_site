@@ -32,7 +32,11 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="button" class="btn btn-primary get_otp send-otp" value="Send OTP" /> 
-                                    <input type="button" class="btn btn-primary" value="Skip Login" data-dismiss="modal" aria-label="Close" /> 
+                                    <input type="button" class="btn btn-primary skip_form_login" value="Skip Login" data-dismiss="modal" aria-label="Close" /> 
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" id="skip_form" class="" value="Active"/>
+                                    <label for="skip_form"> Not Show Again Login Form</label>
                                 </div>
                             </div>
                             </form>
@@ -46,11 +50,15 @@
                                 <h4 class="modal-title w-100 font-weight-bold">Login</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-    
                                 </button>
                             </div>
+
                             <form action="{{ action }}" method="post" enctype="multipart/form-data">
                             <div class="modal-body mx-3">
+                                <div class="form-group">
+                                <label class="form-group number_change_label" for=""></label>
+                                <input type="button" class="btn btn-primary change_number" value="Change"/>
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label" for="input-password">Enter OTP</label>
                                     <input type="password" name="password" value="" placeholder="" id="input-password" class="form-control user_otp" />
@@ -59,7 +67,9 @@
                                     <input type="button" class="btn btn-primary resend_otp" value="Resend OTP" /> 
                                     <input type="button" class="btn btn-primary otp_login" value="Verify OTP" /> 
                                 </div>
+                                
                             </div>
+
                                 
                             </div>
                             </form>
@@ -77,9 +87,31 @@
 {{ footer }}
 
 <script type="text/javascript">
+var skip_form ='';
 $(document).ready(function(){
     $(window).on('load', function() {
-        $('#modalLoginForm').modal('show');
+        if(localStorage.getItem('skip_login_checkbox')==='Active'){
+            // $('#modalLoginForm').modal('show');
+        }
+        else{
+                    $('#modalLoginForm').modal('show');
+        }
+        
+    });
+    $('#skip_form').click(function(){
+        if (this.checked) {
+           skip_form = this.value;
+        }
+        else {
+           skip_form = '';
+        }
+    }) 
+
+    $('.skip_form_login').click(function(){
+        if(skip_form!==''){
+            localStorage.setItem("skip_login_checkbox", skip_form);
+            console.log(localStorage.getItem("skip_login_checkbox"));
+        }
     });
     $('.get_otp,.resend_otp').click(()=>{
         var mobile_no=$('.user_account_mobile').val();
@@ -93,6 +125,11 @@ $(document).ready(function(){
                         if(data['status']==='success'){
                              $('#modalLoginForm').modal('hide');
                              $('#modalLoginOtp').modal('show');
+                             $('.number_change_label').text('Please enter the OTP sent to '+mobile_no);
+                             $('.change_number').on('click', function(){
+                                $('#modalLoginOtp').modal('hide');
+                                $('#modalLoginForm').modal('show');
+                             });
                             $('.otp_login').click(()=>{
                                  var user_otp=$('.user_otp').val();
                                 $.ajax({
@@ -128,7 +165,7 @@ $(document).ready(function(){
                                                     // confirmButtonText: 'Yes, delete it!'
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        location.reload();
+                                                        // location.reload();
                                                     }
                                                 });
                                         }
@@ -148,7 +185,7 @@ $(document).ready(function(){
                                 // confirmButtonText: 'Yes, delete it!'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    location.reload();
+                                    // location.reload();
                                 }
                             });
                         }
