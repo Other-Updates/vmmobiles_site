@@ -80,4 +80,88 @@ class ControllerAccountForgotten extends Controller {
 
 		return !$this->error;
 	}
+
+	public function Check_valid_mobile(){
+		$reset_id=$this->request->post['reset_email_mobile'];	
+		$this->load->model('account/customer');
+		$customer_valid=$this->model_account_customer->check_customer_valid($reset_id);
+
+		if(!empty($customer_valid))
+		{
+			$username=TEXT_LOCAL_USER;
+			$password=TEXT_LOCAL_PASS;
+			$iOtp=rand(1000,9999);
+
+
+			$sender = "CICSTO"; // This is who the message appears to be from.
+			$numbers = "9578877625"; // A single number or a comma-seperated list of numbers
+			// $numbers=$user_number1;
+			$message=$iOtp." is your OTP to register with CoolinCool Store, For any help, please contact us at +91 9655007712";
+
+			// 612 chars or less
+			// A single number or a comma-seperated list of numbers
+			$message = urlencode($message);
+			$post_data = "username=".$username."&hash=".$password."&message=".$message."&sender=".$sender."&numbers=".$numbers;
+			$ch = curl_init('https://api.textlocal.in/send/?');
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$result = curl_exec($ch); // This is the result from the API
+			curl_close($ch);
+
+			$otp_login=$this->model_account_customer->otp_update_forget($iOtp,$reset_id);
+			
+
+			$this->response->addHeader('Content-Type: application/json');
+			$json['status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$this->response->addHeader('Content-Type: application/json');
+			$json['status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+		
+	}
+	// public function otp_verification_forget(){
+	// 	print_r('1');exit;
+	// }
+
+	public function otp_verification_forget(){
+		$email=$_POST['reset_email_mobile'];
+		$password=$_POST['iOtp'];
+		$this->load->model('account/customer');
+		$login_check=$this->model_account_customer->custom_forget_check($email,$password);
+		if($login_check==true){
+			$json['login_status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$json['login_status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+
+	}
+
+	public function update_custome_password(){
+		$reset_id=$this->request->post['reset_email_mobile'];	
+		$new_password=$this->request->post['new_password'];	
+		$confirm_password=$this->request->post['confirm_password'];	
+		if($new_password==$confirm_password){
+			$this->load->model('account/customer');
+            $customer_info=$this->model_account_customer->update_customer_password($reset_id,$confirm_password);
+            
+			$json['login_status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$json['login_status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+
+	}
+
 }

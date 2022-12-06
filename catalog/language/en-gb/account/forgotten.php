@@ -10,7 +10,7 @@ $_['text_email']      = 'Enter the e-mail address associated with your account. 
 $_['text_success']    = 'An email with a confirmation link has been sent your email address.';
 
 // Entry
-$_['entry_email']     = 'E-Mail Address';
+$_['entry_email']     = 'E-Mail Address / Mobile Number';
 $_['entry_password']  = 'New Password';
 $_['entry_confirm']   = 'Confirm';
 

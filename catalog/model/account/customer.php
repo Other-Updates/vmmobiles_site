@@ -159,6 +159,33 @@ class ModelAccountCustomer extends Model {
 		return $query->row;	
 	}
 
+	// forget password otp update
+	public function otp_update_forget($iOtp,$mobile_number){
+		$query=$this->db->query("UPDATE " . DB_PREFIX . "customer SET iReset_Otp = '".$iOtp."' WHERE telephone = '" . $mobile_number . "'");
+		
+		return $query->row;	
+	}
+	public function custom_forget_check($mobile, $iOtp, $override = false){
+		if ($override) {
+			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE telephone = '" . $mobile . "' ");
+		} else {
+			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE telephone = '" . $mobile . "' AND  iReset_Otp = '" . $iOtp . "'");
+		}
+
+		if($customer_query->num_rows) {
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public function update_customer_password($id, $password){
+		$this->db->query("UPDATE " . DB_PREFIX . "customer SET salt = '" . $this->db->escape($salt = token(9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "', code = '' WHERE telephone = '" . $id . "'");
+
+	}
+
+
 	public function otp_register_update_model($iOtp,$mobile_number){
 		// print_r($mobile_number);
 		// print_r($iOtp);
