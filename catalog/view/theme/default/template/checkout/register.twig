@@ -383,6 +383,9 @@
                     <input type="button" class="btn btn-primary resend_otp" value="Resend OTP" /> 
                     <input type="button" class="btn btn-primary otp_login" value="Verify OTP" /> 
                 </div>
+                <div class="form-group">
+                    <p>Resend OTP Will Cooldown in <span id="time">60</span> Seconds </p>
+                </div>
             </div>
                 
           </div>
@@ -394,7 +397,7 @@ $( document ).ready(function() {
     $('.btn_submit_continue').attr('disabled','disabled');
 });
 
-$('.get_otp').click(()=>{
+$('.get_otp,.resend_otp').click(()=>{
       var mobile_no=$('.mobile_number').val();
       
       if(mobile_no && mobile_no.length ===10){
@@ -421,6 +424,18 @@ $('.get_otp').click(()=>{
             else
             {
                 $('#modalLoginOtp').modal('show'); 
+                $('.resend_otp').attr('disabled','disabled');
+                var i = 59;
+                var time = $("#time")
+                var timer = setInterval(function() {
+                time.html(i);
+                if (i == 0) {
+                    $('.resend_otp').removeAttr('disabled');
+                    clearInterval(timer);
+
+                }
+                i--;
+                }, 1000)
                 $('.otp_login').click(()=>{
                   var iOtp=$('.user_otp').val();
                   $.ajax({

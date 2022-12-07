@@ -59,6 +59,9 @@
                     <input type="button" class="btn btn-primary resend_otp" value="Resend OTP" /> 
                     <input type="button" class="btn btn-primary otp_login" value="Verify OTP" /> 
                 </div>
+                 <div class="form-group">
+                    <p>Resend OTP Will Cooldown in <span id="time">60</span> Seconds </p>
+                </div>
             </div>
                 
           </div>
@@ -93,7 +96,7 @@
   </div>
 
 <script>
-$('.Get_forget_password').click(function(){
+$('.Get_forget_password,.resend_otp').click(function(){
     var reset_email_mobile = $('.email_mobile_reset').val();
     if(isEmail(reset_email_mobile)=== true){
        $.ajax({
@@ -105,7 +108,19 @@ $('.Get_forget_password').click(function(){
                console.log(data);
                 console.log(data);
               if(data['status']==='success'){
-                  $('#modalLoginOtp').modal('show'); 
+                  $('#modalLoginOtp').modal('show');
+                  $('.resend_otp').attr('disabled','disabled');
+                    var i = 59;
+                    var time = $("#time")
+                    var timer = setInterval(function() {
+                    time.html(i);
+                    if (i == 0) {
+                        $('.resend_otp').removeAttr('disabled');
+                        clearInterval(timer);
+
+                    }
+                    i--;
+                    }, 1000) 
                    $('.otp_login').click(()=>{
                       var iOtp=$('.user_otp').val();
                       $.ajax({
@@ -232,6 +247,18 @@ $('.Get_forget_password').click(function(){
             console.log(data);
             if(data['status']==='success'){
                   $('#modalLoginOtp').modal('show'); 
+                  $('.resend_otp').attr('disabled','disabled');
+                    var i = 59;
+                    var time = $("#time")
+                    var timer = setInterval(function() {
+                    time.html(i);
+                    if (i == 0) {
+                        $('.resend_otp').removeAttr('disabled');
+                        clearInterval(timer);
+
+                    }
+                    i--;
+                    }, 1000) 
                   $('.otp_login').click(()=>{
                   var iOtp=$('.user_otp').val();
                   $.ajax({
