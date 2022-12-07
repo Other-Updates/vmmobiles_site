@@ -7200,7 +7200,7 @@ header .responsive-menu .main-navigation {
 	display: block;
 	margin-top: 0px;
 	padding: 0px 10px 10px;
-	width: 300px;
+	width: 75%;
 	height: 100%;
 	max-height: initial;
 	background-color: #ffffff;
@@ -7242,9 +7242,9 @@ header .responsive-menu .main-navigation {
     opacity: 0.7;
     filter: alpha(opacity=70);
     position: absolute;
-    left: 300px;
+    left: 75%;
     height: 100%;
-    width: calc(100% - 300px);
+    width: 25%;
     top: 0;
     z-index: 99999;
     overflow: hidden;

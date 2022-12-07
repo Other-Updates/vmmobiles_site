@@ -5,7 +5,7 @@ $_['heading_title']   = 'Forgot Your Password?';
 // Text
 $_['text_forgotten']  = 'Forgotten Password';
 $_['text_your_email'] = 'Your E-Mail Address';
-$_['text_email']      = 'Enter the e-mail address associated with your account. Click submit to have a password reset link e-mailed to you.';
+$_['text_email']      = 'Enter the e-mail address or mobile number associated with your account. Click continue and verify OTP for reset your password.';
 $_['text_success']    = 'An email with a confirmation link has been sent your admin email address.';
 
 // Entry

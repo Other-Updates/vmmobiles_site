@@ -40,11 +40,11 @@
     {{ column_right }}</div>
 </div>
 {{ footer }}
-<div class="modal fade" id="modalLoginOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade loginotp" id="modalLoginOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Forget Otp Verification</h4>
+                <h4 class="modal-title w-100 font-weight-bold">Verify OTP</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
 
@@ -52,22 +52,23 @@
             </div>
             <div class="modal-body mx-3">
                 <div class="form-group">
-                    <label class="control-label" for="input-password">Otp</label>
+                    <label class="control-label" for="input-password">Enter OTP</label>
                     <input type="password" name="password" value="" placeholder="" id="input-password" class="form-control user_otp" />
                 </div>
                 <div class="form-group">
-                    <input type="button" class="btn btn-primary otp_login" value="Login" /> 
+                    <input type="button" class="btn btn-primary resend_otp" value="Resend OTP" /> 
+                    <input type="button" class="btn btn-primary otp_login" value="Verify OTP" /> 
                 </div>
             </div>
                 
           </div>
       </div>
   </div>
-  <div class="modal fade" id="password_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade loginotp" id="password_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Password Update</h4>
+                <h4 class="modal-title w-100 font-weight-bold">Update Password</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
 
@@ -82,8 +83,8 @@
                     <label class="control-label" for="confirm_password1">Confirm Password</label>
                     <input type="password" name="confirm_password" value="" placeholder="" id="confirm_password1" class="form-control confirm_password" />
                 </div>
-                <div class="form-group">
-                    <input type="button" class="btn btn-primary update_pass" value="Update Password" /> 
+                <div class="form-group text-right">
+                    <input type="button" class="btn btn-primary update_pass" value="Update" /> 
                 </div>
             </div>
                 
