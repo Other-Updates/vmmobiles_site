@@ -64,16 +64,14 @@
               <div class="text-danger">{{ error_email }}</div>
               {% endif %} </div>
           </div>
-          <div class="form-group required">
+          <div class="form-group required otp-grp">
             <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
             <div class="col-sm-10">
-              <input type="tel" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control mobile_number" />
+              <input type="tel" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control mobile_number otp-tele" />
+              <input type="button" class="btn btn-primary get_otp" value="Get Otp" />
               {% if error_telephone %}
               <div class="text-danger">{{ error_telephone }}</div>
-              {% endif %} </div>
-          </div>
-          <div class="form-group">
-              <input type="button" class="btn btn-primary get_otp" value="Get Otp" /> 
+              {% endif %} </div> 
           </div>
           {% for custom_field in custom_fields %}
           {% if custom_field.type == 'select' %}
@@ -303,11 +301,11 @@
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
-<div class="modal fade" id="modalLoginOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade loginotp" id="modalLoginOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                <h4 class="modal-title w-100 font-weight-bold">Verify OTP</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
 
@@ -315,11 +313,12 @@
             </div>
             <div class="modal-body mx-3">
                 <div class="form-group">
-                    <label class="control-label" for="input-password">Otp</label>
-                    <input type="password" name="password" value="" placeholder="" id="input-password" class="form-control user_otp" />
+                    <label class="control-label" for="input-password">OTP</label>
+                    <input type="password" name="password" value="" placeholder="" id="input-password" class="form-control user_otp" autocomplete="off" />
                 </div>
                 <div class="form-group">
-                    <input type="button" class="btn btn-primary otp_login" value="Login" /> 
+                <input type="button" class="btn btn-primary resend_otp" value="Resend OTP" /> 
+                    <input type="button" class="btn btn-primary otp_login" value="Verify OTP" /> 
                 </div>
             </div>
                 
