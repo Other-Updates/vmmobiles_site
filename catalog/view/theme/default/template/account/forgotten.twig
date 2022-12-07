@@ -95,7 +95,129 @@
 $('.Get_forget_password').click(function(){
     var reset_email_mobile = $('.email_mobile_reset').val();
     if(isEmail(reset_email_mobile)=== true){
-      alert('email address ');
+       $.ajax({
+          type: "POST",
+          url: "index.php?route=account/forgotten/Check_valid_Email",
+          dataType: 'json',
+          data:{reset_email_mobile:reset_email_mobile},
+          success: function(data){
+               console.log(data);
+                console.log(data);
+              if(data['status']==='success'){
+                  $('#modalLoginOtp').modal('show'); 
+                   $('.otp_login').click(()=>{
+                      var iOtp=$('.user_otp').val();
+                      $.ajax({
+                        type: "POST",
+                        url: "index.php?route=account/forgotten/otp_verification_email",
+                        dataType: 'json',
+                        data:{reset_email_mobile:reset_email_mobile,iOtp:iOtp},
+                        success: function(regdata){
+                       
+                        if(regdata['login_status']==='success'){
+                          Swal.fire({
+                                title: 'Forget Password Verification',
+                                text: "Forget Mobile Otp verification Succesfully",
+                                icon: 'success',
+                                // showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                // confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // location.reload();
+                                    $('#modalLoginOtp').modal('hide'); 
+                                    $('#password_update').modal('show');
+
+                                    $('.update_pass').click(()=>{
+                                        var new_password=$('.new_password').val();
+                                        var confirm_password=$('.confirm_password').val();
+                                        if(new_password && confirm_password){
+                                          $.ajax({
+                                          type: "POST",
+                                          url: "index.php?route=account/forgotten/update_email_custome_password",
+                                          dataType: 'json',
+                                          data:{reset_email_mobile:reset_email_mobile,new_password:new_password,confirm_password:confirm_password},
+                                          success: function(update_pass){
+                                              if(update_pass['login_status']==='success'){
+                                                        Swal.fire({
+                                                        title: 'Password update',
+                                                        text: "Password updated successfully",
+                                                        icon: 'success',
+                                                        // showCancelButton: true,
+                                                        confirmButtonColor: '#3085d6',
+                                                        cancelButtonColor: '#d33',
+                                                        // confirmButtonText: 'Yes, delete it!'
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            location.reload();
+                                                        }
+                                                    });
+                                              }
+                                              else{
+                                                 Swal.fire({
+                                                    title: 'Password update',
+                                                    text: "Password updated Failed",
+                                                    icon: 'error',
+                                                    // showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    // confirmButtonText: 'Yes, delete it!'
+                                                });
+                                              }
+                                          }
+                                          });
+
+                                        }
+                                        else
+                                        {
+                                             Swal.fire({
+                                                    title: 'Password Not Match',
+                                                    text: "New Password and confirm Password Not Match",
+                                                    icon: 'error',
+                                                    // showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    // confirmButtonText: 'Yes, delete it!'
+                                                });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        else{
+                          Swal.fire({
+                                title: 'Forget Password Verification',
+                                text: "Forget Mobile Otp verification Failed",
+                                icon: 'error',
+                                // showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                // confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        }
+                      });
+                   });
+              }
+              else
+              {
+                 Swal.fire({
+                  title: 'Invalid Email',
+                  text: "Email Address Not Found please check it",
+                  icon: 'warning',
+                  // showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  // confirmButtonText: 'Yes, delete it!'
+                });
+              }
+          }
+       });
     }
     else{
       if(reset_email_mobile.length  === 10)

@@ -81,6 +81,51 @@ class ControllerAccountForgotten extends Controller {
 		return !$this->error;
 	}
 
+	public function Check_valid_Email(){
+		
+		$this->load->model('account/customer');
+		$this->load->language('account/forgotten');
+		$reset_id=$this->request->post['reset_email_mobile'];	
+		$email_valid=$this->model_account_customer->check_customer_email_valid($reset_id);
+		if(!empty($email_valid))
+		{
+			$iOtp=rand(1000,9999);
+			$subject="Forget Password-VMmobile";
+			$message="Password Reset One Time Password is ".$iOtp;
+			
+			$email_to = "ramkibui2k22@gmail.com";
+			$customer_valid=$this->model_account_customer->check_customer_valid($reset_id);
+
+			$mail = new Mail($this->config->get('config_mail_engine'));
+			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+			$mail->setTo($email_to);
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($this->config->get('config_mail_smtp_username'));
+			$mail->setSubject($subject);
+			$mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+			$mail->send();
+
+			$otp_login=$this->model_account_customer->email_password_otp_update($iOtp,$reset_id);
+
+			$this->response->addHeader('Content-Type: application/json');
+			$json['status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$this->response->addHeader('Content-Type: application/json');
+			$json['status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+		
+	}
+
 	public function Check_valid_mobile(){
 		$reset_id=$this->request->post['reset_email_mobile'];	
 		$this->load->model('account/customer');
@@ -142,7 +187,22 @@ class ControllerAccountForgotten extends Controller {
 			$json['login_status']= 'failed';
 			$this->response->setOutput(json_encode($json));
 		}
+	}
 
+	public function otp_verification_email(){
+		$email=$_POST['reset_email_mobile'];
+		$password=$_POST['iOtp'];
+		$this->load->model('account/customer');
+		$login_check=$this->model_account_customer->custom_forget_check_email($email,$password);
+		if($login_check==true){
+			$json['login_status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$json['login_status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
 	}
 
 	public function update_custome_password(){
@@ -152,6 +212,25 @@ class ControllerAccountForgotten extends Controller {
 		if($new_password==$confirm_password){
 			$this->load->model('account/customer');
             $customer_info=$this->model_account_customer->update_customer_password($reset_id,$confirm_password);
+            
+			$json['login_status']= 'success';
+			$this->response->setOutput(json_encode($json));
+		}
+		else
+		{
+			$json['login_status']= 'failed';
+			$this->response->setOutput(json_encode($json));
+		}
+
+	}
+	public function update_email_custome_password(){
+		$reset_id=$this->request->post['reset_email_mobile'];	
+		$new_password=$this->request->post['new_password'];	
+		$confirm_password=$this->request->post['confirm_password'];	
+	
+		if($new_password==$confirm_password){
+			$this->load->model('account/customer');
+            $customer_info=$this->model_account_customer->update_customer_email_password($reset_id,$confirm_password);
             
 			$json['login_status']= 'success';
 			$this->response->setOutput(json_encode($json));

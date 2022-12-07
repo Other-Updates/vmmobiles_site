@@ -165,6 +165,13 @@ class ModelAccountCustomer extends Model {
 		
 		return $query->row;	
 	}
+
+	public function email_password_otp_update($iOtp,$email_id){
+		$query=$this->db->query("UPDATE " . DB_PREFIX . "customer SET iReset_Otp = '".$iOtp."' WHERE email = '" . $this->db->escape(utf8_strtolower($email_id)) . "'");
+		// return $query->row;	
+	}
+
+
 	public function custom_forget_check($mobile, $iOtp, $override = false){
 		if ($override) {
 			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE telephone = '" . $mobile . "' ");
@@ -180,8 +187,32 @@ class ModelAccountCustomer extends Model {
 			return false;
 		}
 	}
+
+	public function custom_forget_check_email($email_id, $iOtp, $override = false){
+		if ($override) {
+			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE email = '" . $this->db->escape(utf8_strtolower($email_id)) . "' ");
+		} else {
+			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE email = '" . $this->db->escape(utf8_strtolower($email_id)) . "' AND  iReset_Otp = '" . $iOtp . "'");
+		}
+
+		if($customer_query->num_rows) {
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+
 	public function update_customer_password($id, $password){
 		$this->db->query("UPDATE " . DB_PREFIX . "customer SET salt = '" . $this->db->escape($salt = token(9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "', code = '' WHERE telephone = '" . $id . "'");
+
+	}
+
+	public function update_customer_email_password($email_id, $password){	
+		$this->db->query("UPDATE " . DB_PREFIX . "customer SET salt = '" . $this->db->escape($salt = token(9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "', code = '' WHERE email = '" . $this->db->escape(utf8_strtolower($email_id)) . "'");
 
 	}
 
@@ -197,13 +228,16 @@ class ModelAccountCustomer extends Model {
 	
 	}
 
+	public function check_customer_email_valid($id){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE email = '" . $this->db->escape(utf8_strtolower($id)) . "'");
+		return $query->row;	
+
+	}
 	
 
 	
 	public function check_customer_valid($id){
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `telephone` = '" . $id . "'");
-
-		
 		return $query->row;	
 
 	}
