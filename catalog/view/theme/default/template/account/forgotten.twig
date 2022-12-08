@@ -60,7 +60,7 @@
                     <input type="button" class="btn btn-primary otp_login" value="Verify OTP" /> 
                 </div>
                  <div class="form-group">
-                    <p>Resend OTP Will Cooldown in <span id="time">60</span> Seconds </p>
+                    <p>Please wait <span id="time">60</span> sec before requesting a new OTP.</p>
                 </div>
             </div>
                 
@@ -172,8 +172,8 @@ $('.Get_forget_password,.resend_otp').click(function(){
                                               }
                                               else{
                                                  Swal.fire({
-                                                    title: 'Password update',
-                                                    text: "Password updated Failed",
+                                                    title: 'Password Not Match',
+                                                    text: "ew Password and confirm Password Not Match",
                                                     icon: 'error',
                                                     // showCancelButton: true,
                                                     confirmButtonColor: '#3085d6',
@@ -212,7 +212,7 @@ $('.Get_forget_password,.resend_otp').click(function(){
                                 // confirmButtonText: 'Yes, delete it!'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    location.reload();
+                                    // location.reload();
                                 }
                             });
                         }
@@ -312,8 +312,8 @@ $('.Get_forget_password,.resend_otp').click(function(){
                                               }
                                               else{
                                                    Swal.fire({
-                                                    title: 'Password update',
-                                                    text: "Password updated Failed",
+                                                    title: 'Password Not Match',
+                                                    text: "New Password and confirm Password Not Match",
                                                     icon: 'error',
                                                     // showCancelButton: true,
                                                     confirmButtonColor: '#3085d6',
@@ -352,7 +352,7 @@ $('.Get_forget_password,.resend_otp').click(function(){
                                 // confirmButtonText: 'Yes, delete it!'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    location.reload();
+                                    // location.reload();
                                 }
                             });
                     }
