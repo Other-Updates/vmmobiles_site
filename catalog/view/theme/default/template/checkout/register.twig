@@ -33,7 +33,7 @@
       </div>
       <div class="form-group required otp-grp">
         <label class="control-label" for="input-payment-telephone">{{ entry_telephone }}</label>
-        <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}" id="input-payment-telephone" class="form-control mobile_number otp-tele" />
+        <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}" id="input-payment-telephone" class="form-control mobile_number otp-tele" /><label class="Otp_verification_label d-none" for="">Verified</label>
         <input type="button" class="btn btn-primary get_otp" value="Get Otp" /> 
       </div>
       {% for custom_field in custom_fields %}
@@ -376,8 +376,8 @@
             </div>
             <div class="modal-body mx-3">
                 <div class="form-group">
-                    <label class="control-label" for="input-password">Enter OTP</label>
-                    <input type="password" name="password" value="" placeholder="" id="input-password" class="form-control user_otp" autocomplete="off" />
+                    <label class="control-label" for="input-password1">Enter OTP</label>
+                    <input type="password" value="" placeholder="" id="input-password1" class="form-control user_otp" autocomplete="off" />
                 </div>
                 <div class="form-group">
                     <input type="button" class="btn btn-primary resend_otp" value="Resend OTP" /> 
@@ -464,6 +464,7 @@ $('.get_otp,.resend_otp').click(()=>{
                                       //     url: "index.php?route=account/login/delete_otp_mobile",
                                       //     dataType: 'json',
                                       // })
+                                      $('.Otp_verification_label').removeClass("d-none");
                                 }
                             });
                     }
