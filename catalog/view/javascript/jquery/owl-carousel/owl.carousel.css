@@ -96,12 +96,12 @@
 .owl-carousel .owl-buttons{display:block;}
 .owl-carousel .owl-buttons .owl-next {
 	opacity: 0; 
-	background:url(../../../theme/OPC080185_5/image/webdigify/button.png) no-repeat scroll -48px 0px transparent;
+	
 }
 .owl-carousel .owl-buttons .owl-next:hover{background-position:-48px -48px;}
 .owl-carousel .owl-buttons .owl-prev {
 	opacity: 0; 
-	background:url(../../../theme/OPC080185_5/image/webdigify/button.png) no-repeat scroll 0px 0px transparent;
+	
 }
 .owl-carousel .owl-buttons .owl-prev:hover{background-position:0px -48px;}
 .owl-carousel:hover .owl-buttons div {
