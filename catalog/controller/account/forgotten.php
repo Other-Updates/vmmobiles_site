@@ -93,7 +93,8 @@ class ControllerAccountForgotten extends Controller {
 			$subject="Forget Password-VMmobile";
 			$message="Password Reset One Time Password is ".$iOtp;
 			
-			$email_to = "ramkibui2k22@gmail.com";
+			// $email_to = "ramkibui2k22@gmail.com";
+			$email_to=$reset_id;
 			$customer_valid=$this->model_account_customer->check_customer_valid($reset_id);
 
 			$mail = new Mail($this->config->get('config_mail_engine'));
@@ -139,8 +140,8 @@ class ControllerAccountForgotten extends Controller {
 
 
 			$sender = "CICSTO"; // This is who the message appears to be from.
-			$numbers = "9578877625"; // A single number or a comma-seperated list of numbers
-			// $numbers=$user_number1;
+			// $numbers = "9578877625"; // A single number or a comma-seperated list of numbers
+			$numbers=$reset_id;
 			$message=$iOtp." is your OTP to register with CoolinCool Store, For any help, please contact us at +91 9655007712";
 
 			// 612 chars or less

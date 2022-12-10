@@ -167,8 +167,8 @@ class ControllerAccountLogin extends Controller {
 
 
 		$sender = "CICSTO"; // This is who the message appears to be from.
-        $numbers = "9578877625"; // A single number or a comma-seperated list of numbers
-		// $numbers=$user_number;
+        // $numbers = "9578877625"; // A single number or a comma-seperated list of numbers
+		$numbers=$user_number;
         $message=$iOtp." is your OTP to register with CoolinCool Store, For any help, please contact us at +91 9655007712";
 
 		// 612 chars or less
@@ -232,8 +232,8 @@ class ControllerAccountLogin extends Controller {
 
 
 			$sender = "CICSTO"; // This is who the message appears to be from.
-			$numbers = "9578877625"; // A single number or a comma-seperated list of numbers
-			// $numbers=$user_number1;
+			// $numbers = "9578877625"; // A single number or a comma-seperated list of numbers
+			$numbers=$user_number1;
 			$message=$iOtp." is your OTP to register with CoolinCool Store, For any help, please contact us at +91 9655007712";
 
 			// 612 chars or less
