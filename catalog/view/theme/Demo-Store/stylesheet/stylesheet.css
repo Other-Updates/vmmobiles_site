@@ -8752,22 +8752,22 @@ form .form-control{
 .form-group.mb-0{
 	margin-bottom: 0;
 }
-.category_list ul.refine-search-image {
+.category_thumb .category_list>ul {
 	display: flex;
 }
-.refine-search-image .img-thumbnail.text-center img.img-responsive {
+.category_thumb .category_list>ul .img-thumbnail.text-center img.img-responsive {
     width: 50px;
 	margin-left: auto;
 	margin-right: auto;
 }
-.refine-search-image .img-thumbnail.text-center{
+.category_thumb .category_list>ul .img-thumbnail.text-center{
 	margin: auto;
 }
 @media (max-width: 768px){
-	.category_list ul.refine-search-image {
+	.category_thumb .category_list>ul {
 		display: inline-block;
 	}
-	.refine-search-image .img-thumbnail.text-center{
+	.category_thumb .category_list>ul .img-thumbnail.text-center{
 		width: 30%;
 	}
 	.product-block-inner.w-100 .col-sm-2, .product-block-inner.w-100 .col-sm-6{
