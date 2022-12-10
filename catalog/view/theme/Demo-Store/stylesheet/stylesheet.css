@@ -239,9 +239,6 @@ div.required .control-label:before {
 	display: none !important;
 }
 .outstock .img-responsive{filter: opacity(30%);}
-.footer-blocks .col-sm-3 {
-    width: 25%;
-}
 .footer-area ul li {
 	display: inline-block;
 }
@@ -8816,6 +8813,13 @@ form .form-control{
 	}
 	.productpage #input-quantity, .quickview #input-quantity{
 		float: none;
+	}
+	#products-related .customNavigation{
+		top: 40px
+	}
+	.content-top-breadcum>.container, .content-top-breadcum{
+		z-index: 98;
+		position: relative;
 	}
 }
 .table.table-responsive.desktop_view {
