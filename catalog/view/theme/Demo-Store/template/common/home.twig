@@ -29,6 +29,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="input-email">Mobile No</label>
                                         <input type="text" name="email" value="" placeholder="" id="input-email" class="form-control user_account_mobile" />
+                                        <p id="mobile_error"></p>
                                     </div>
                                     <div class="form-group">
                                         <input type="button" class="btn btn-primary get_otp send-otp" value="Send OTP" /> 
@@ -118,6 +119,9 @@ $(document).ready(function(){
     });
     $('.get_otp,.resend_otp').click(()=>{
         var mobile_no=$('.user_account_mobile').val();
+            if(mobile_no.length===10)
+            {
+                $("#mobile_error").html("").removeClass("error-msg");
                 $.ajax({
                     type: "POST",
                     url: "index.php?route=account/login/otpUpdate",
@@ -193,21 +197,27 @@ $(document).ready(function(){
                         else
                         {
                              Swal.fire({
-                                title: 'Invalid Number?',
-                                text: "Mobile Number Not Found Please Check It",
+                                title: 'Not Registered',
+                                text: "Mobile Number Not Registered",
                                 icon: 'warning',
-                                // showCancelButton: true,
+                                showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                // confirmButtonText: 'Yes, delete it!'
+                                cancelButtonColor: '#3085d6',
+                                confirmButtonText: 'Register',
+                                cancelButtonText: 'Change Number'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    // location.reload();
+                                    window.location = 'index.php?route=account/register';
                                 }
                             });
                         }
                     }
                 });
+            }
+            else
+            {
+                $("#mobile_error").html("Please Enter Valid Number").addClass("error-msg");
+            }
     });
     $('.service-area-carousel').owlCarousel({
             items: 4,
