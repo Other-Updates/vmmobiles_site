@@ -29,10 +29,13 @@
                                     <div class="form-group">
                                         <label class="control-label" for="input-email">Mobile No</label>
                                         <input type="text" name="email" value="" placeholder="" id="input-email" class="form-control user_account_mobile" />
+                                          
                                         <p id="mobile_error"></p>
+                                        <p id="unregister_number"></p>
                                     </div>
                                     <div class="form-group">
                                         <input type="button" class="btn btn-primary get_otp send-otp" value="Send OTP" /> 
+                                        <input type="button" class="btn btn-primary register_number d-none" value="Continue">
                                         <input type="button" class="btn btn-primary skip_form_login" value="Skip Login" data-dismiss="modal" aria-label="Close" /> 
                                     </div>
                                     <div class="form-group">
@@ -70,6 +73,38 @@
                                     </div>
                                     <div class="form-group">
                                         <p>Please wait <span id="time">60</span> sec before requesting a new OTP.</p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="modal fade registerotp" id="modalRegisterOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Login</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form action="{{ action }}" method="post" enctype="multipart/form-data">
+                                <div class="modal-body mx-3">
+                                    <div class="form-group">
+                                    <label class="form-group number_change_label_reg" for=""></label>
+                                    <input type="button" class="change_number_reg" title="Change Mobile Number" value="Change"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="input-password">Enter OTP</label>
+                                        <input type="password" name="password1" value="" placeholder="" id="input-password1" class="form-control user_otp_reg" autocomplete="off" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="button" class="btn btn-primary resend_otp_reg" value="Resend OTP" /> 
+                                        <input type="button" class="btn btn-primary otp_login_reg" value="Verify OTP" /> 
+                                    </div>
+                                    <div class="form-group">
+                                        <p>Please wait <span id="time1">60</span> sec before requesting a new OTP.</p>
                                     </div>
                                 </div>
                             </form>
@@ -196,20 +231,23 @@ $(document).ready(function(){
                         }
                         else
                         {
-                             Swal.fire({
-                                title: 'Not Registered',
-                                text: "Mobile Number Not Registered",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#3085d6',
-                                confirmButtonText: 'Register',
-                                cancelButtonText: 'Change Number'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location = 'index.php?route=account/register';
-                                }
-                            });
+                             $("#unregister_number").html("Mobile Number Not Registered With Us Please Sign Up").addClass("error-msg");
+                             $('.get_otp').addClass('d-none');
+                             $('.register_number').removeClass('d-none');
+                            //  Swal.fire({
+                            //     title: 'Not Registered',
+                            //     text: "Mobile Number Not Registered",
+                            //     icon: 'warning',
+                            //     showCancelButton: true,
+                            //     confirmButtonColor: '#3085d6',
+                            //     cancelButtonColor: '#3085d6',
+                            //     confirmButtonText: 'Register',
+                            //     cancelButtonText: 'Change Number'
+                            // }).then((result) => {
+                            //     if (result.isConfirmed) {
+                            //         window.location = 'index.php?route=account/register';
+                            //     }
+                            // });
                         }
                     }
                 });
@@ -219,6 +257,126 @@ $(document).ready(function(){
                 $("#mobile_error").html("Please Enter Valid Number").addClass("error-msg");
             }
     });
+    $('.register_number').on('click', function(){
+         
+        var mobile_no1=$('.user_account_mobile').val();
+        if(mobile_no1 && mobile_no1.length ===10){
+            $('#modalLoginForm').modal('hide');
+             $.ajax({
+          type: "POST",
+          url: "index.php?route=account/login/otp_check_registeration1",
+          dataType: 'json',
+          data:{mobile_no1:mobile_no1},
+          success: function(data){
+            console.log(data);
+            if(data['status']==='success'){
+              Swal.fire({
+                title: 'Already Register',
+                  text: "Mobile Number Already Registered",
+                  icon: 'warning',
+                  // showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  // confirmButtonText: 'Yes, delete it!'
+              });
+                   
+            }
+            else
+            {
+                $('#modalRegisterOtp').modal('show'); 
+                $('.change_number_reg').on('click', function(){
+                                $('#modalRegisterOtp').modal('hide');
+                                // $('#modalLoginForm').modal('show');
+                                clearInterval(timer);
+                             });
+                             
+                $('.resend_otp_reg').attr('disabled','disabled');
+                var i = 59;
+                var time = $("#time1")
+                var timer = setInterval(function() {
+                time.html(i);
+                if (i == 0) {
+                    $('.resend_otp_reg').removeAttr('disabled');
+                    clearInterval(timer);
+
+                }
+                i--;
+                }, 1000)
+                $('.otp_login_reg').click(()=>{
+                  var iOtp1=$('.user_otp_reg').val();
+                  $.ajax({
+                    type: "POST",
+                    url: "index.php?route=account/login/otp_verification_registeration1",
+                    dataType: 'json',
+                    data:{mobile_no1:mobile_no1,iOtp1:iOtp1},
+                    success: function(regdata){
+                        console.log(regdata);
+                        if(regdata['login_status']==='success'){
+                          Swal.fire({
+                                title: 'Register Verification',
+                                text: "Mobile Otp verification Succesfully",
+                                icon: 'success',
+                                // showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                // confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // location.reload();
+                                   
+                                    $('#modalRegisterOtp').modal('hide'); 
+                                     $('$modalLoginForm').modal('hide');
+                                    $('.resend_otp_reg').removeAttr('disabled');
+                                      $('.Otp_verification_label').removeClass("d-none");
+                                         $.ajax({
+                                            type: "POST",
+                                            url: "index.php?route=account/login/customer_register",
+                                            dataType: 'json',
+                                            data:{mobile_no1:mobile_no1},
+                                            success: function(data){
+
+                                            }
+                                        });
+                                }
+                            });
+                    }
+                    else{
+                          Swal.fire({
+                                title: 'Register Verification',
+                                text: "Mobile Otp verification Failed",
+                                icon: 'error',
+                                // showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                // confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // location.reload();
+                                }
+                            });
+                    }
+                    }
+                });
+                });
+            }
+          }
+      });
+        }
+        else{
+          Swal.fire({
+                title: 'Invalid Number',
+                text: "Please enter number and  valid number",
+                icon: 'error',
+                // showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                // confirmButtonText: 'Yes, delete it!'
+            });
+      }
+     
+    });
+    
+
     $('.service-area-carousel').owlCarousel({
             items: 4,
             autoPlay: true,
