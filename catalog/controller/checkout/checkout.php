@@ -75,7 +75,17 @@ class ControllerCheckoutCheckout extends Controller {
 			$data['error_warning'] = '';
 		}
 
+		// show account edit option for mobile number otp registered user
 		$data['logged'] = $this->customer->isLogged();
+		$this->load->model('account/customer');
+		$user_name_valid=$this->model_account_customer->check_customer_name($data['logged']);
+		if(!empty($user_name_valid)){
+			$data['edit_user']=$user_name_valid;
+		}else{
+			$data['edit_user']="";
+		}
+		
+		
 
 		if (isset($this->session->data['account'])) {
 			$data['account'] = $this->session->data['account'];

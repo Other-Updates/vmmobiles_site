@@ -326,9 +326,9 @@ class ControllerAccountLogin extends Controller {
 		$password=$_POST['iOtp1'];
 		$this->load->model('account/customer');
 		$login_check=$this->model_account_customer->custom_reg_check($email,$password);
+	
 		if($login_check==true){
-
-			$this->model_account_customer->addCustomer($data);
+			$this->model_account_customer->addCustomer1($data);
 			$json['login_status']= 'success';
 			$this->response->setOutput(json_encode($json));
 		}
