@@ -323,4 +323,15 @@ class ModelAccountCustomer extends Model {
 			return $data;
 		}
 	}
+	public function check_valid_email_id($id){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `email` = '" . $id . "'");
+		if(!empty($query->row['email'])){
+			$data='email address found';
+			return $data;
+		}
+		else{
+			$data='email address not found';
+			return $data;
+		}
+	}
 }

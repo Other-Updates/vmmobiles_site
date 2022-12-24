@@ -55,6 +55,7 @@ class ControllerCheckoutCheckout extends Controller {
 		);
 
 		$data['text_checkout_option'] = sprintf($this->language->get('text_checkout_option'), 1);
+		$data['collapse_payment_edit'] = sprintf($this->language->get('collapse_payment_edit'),2);
 		$data['text_checkout_account'] = sprintf($this->language->get('text_checkout_account'), 2);
 		$data['text_checkout_payment_address'] = sprintf($this->language->get('text_checkout_payment_address'), 2);
 		$data['text_checkout_shipping_address'] = sprintf($this->language->get('text_checkout_shipping_address'), 3);

@@ -32,9 +32,9 @@
         {% if edit_user =="Show Account Edit" %}
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">{{ text_checkout_account }}</h4>
+                    <h4 class="panel-title">{{ collapse_payment_edit }}</h4>
                 </div>
-                <div class="panel-collapse collapse" id="collapse-payment-address">
+                <div class="panel-collapse collapse" id="collapse-payment-edit">
                     <div class="panel-body"></div>
                 </div>
             </div>
@@ -112,6 +112,25 @@ $(document).on('change', 'input[name=\'account\']', function() {
 		}
 	}
 });
+
+{% if edit_user =="Show Account Edit" %}
+$(document).ready(function() {
+    $.ajax({
+        url: 'index.php?route=account/acc_edit',
+        dataType: 'html',
+        success: function(html) {
+           $('#collapse-payment-edit .panel-body').html(html);
+
+			$('#collapse-payment-edit').parent().find('.panel-heading .panel-title').html('<a href="#collapse-payment-edit" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">{{ collapse_payment_edit }} <i class="fa fa-caret-down"></i></a>');
+
+			$('a[href=\'#collapse-payment-edit\']').trigger('click');
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+{% endif %}
 
 {% if not logged %}
 $(document).ready(function() {
