@@ -257,7 +257,7 @@ $(document).ready(function(){
                 $("#mobile_error").html("Please Enter Valid Number").addClass("error-msg");
             }
     });
-    $('.register_number').on('click', function(){
+    $('.register_number,.resend_otp_reg').on('click', function(){
          
         var mobile_no1=$('.user_account_mobile').val();
         if(mobile_no1 && mobile_no1.length ===10){
@@ -284,9 +284,10 @@ $(document).ready(function(){
             else
             {
                 $('#modalRegisterOtp').modal('show'); 
+                 $('.number_change_label_reg').text('Please enter the OTP sent to '+mobile_no1+'.');
                 $('.change_number_reg').on('click', function(){
                                 $('#modalRegisterOtp').modal('hide');
-                                // $('#modalLoginForm').modal('show');
+                                $('#modalLoginForm').modal('show');
                                 clearInterval(timer);
                              });
                              
@@ -322,21 +323,12 @@ $(document).ready(function(){
                                 // confirmButtonText: 'Yes, delete it!'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    // location.reload();
-                                   
+                                    location.reload(); 
                                     $('#modalRegisterOtp').modal('hide'); 
-                                     $('$modalLoginForm').modal('hide');
+                                    $('$modalLoginForm').modal('hide');
                                     $('.resend_otp_reg').removeAttr('disabled');
-                                      $('.Otp_verification_label').removeClass("d-none");
-                                         $.ajax({
-                                            type: "POST",
-                                            url: "index.php?route=account/login/customer_register",
-                                            dataType: 'json',
-                                            data:{mobile_no1:mobile_no1},
-                                            success: function(data){
-
-                                            }
-                                        });
+                                    $('.Otp_verification_label').removeClass("d-none");
+                                        
                                 }
                             });
                     }
