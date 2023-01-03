@@ -30,12 +30,12 @@
                                         <label class="control-label" for="input-email">Mobile No</label>
                                         <input type="text" name="email" value="" placeholder="" id="input-email" class="form-control user_account_mobile" />
                                           
-                                        <p id="mobile_error"></p>
-                                        <p id="unregister_number"></p>
+                                        <p id="mobile_error" class="text-danger"></p>
+                                        <p id="unregister_number" class="text-danger"></p>
                                     </div>
                                     <div class="form-group">
                                         <input type="button" class="btn btn-primary get_otp send-otp" value="Send OTP" /> 
-                                        <input type="button" class="btn btn-primary register_number d-none" value="Continue">
+                                        <input type="button" class="btn btn-primary register_number d-none send-otp" value="Continue">
                                         <input type="button" class="btn btn-primary skip_form_login" value="Skip Login" data-dismiss="modal" aria-label="Close" /> 
                                     </div>
                                     <div class="form-group">
@@ -59,8 +59,8 @@
 
                             <form action="{{ action }}" method="post" enctype="multipart/form-data">
                                 <div class="modal-body mx-3">
-                                    <div class="form-group">
-                                    <label class="form-group number_change_label" for=""></label>
+                                    <div class="form-group mb-5px">
+                                    <label class="number_change_label" for=""></label>
                                     <input type="button" class="change_number" title="Change Mobile Number" value="Change"/>
                                     </div>
                                     <div class="form-group">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                  </div>
-                 <div class="modal fade registerotp" id="modalRegisterOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                 <div class="modal fade registerotp loginotp" id="modalRegisterOtp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header text-center">
@@ -91,8 +91,8 @@
 
                             <form action="{{ action }}" method="post" enctype="multipart/form-data">
                                 <div class="modal-body mx-3">
-                                    <div class="form-group">
-                                    <label class="form-group number_change_label_reg" for=""></label>
+                                    <div class="form-group mb-5px">
+                                    <label class="number_change_label_reg" for=""></label>
                                     <input type="button" class="change_number_reg" title="Change Mobile Number" value="Change"/>
                                     </div>
                                     <div class="form-group">
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="button" class="btn btn-primary resend_otp_reg" value="Resend OTP" /> 
-                                        <input type="button" class="btn btn-primary otp_login_reg" value="Verify OTP" /> 
+                                        <input type="button" class="btn btn-primary otp_login_reg send-otp" value="Verify OTP" /> 
                                     </div>
                                     <div class="form-group">
                                         <p>Please wait <span id="time1">60</span> sec before requesting a new OTP.</p>
@@ -231,7 +231,7 @@ $(document).ready(function(){
                         }
                         else
                         {
-                             $("#unregister_number").html("Mobile Number Not Registered With Us Please Sign Up").addClass("error-msg");
+                             $("#unregister_number").html("Mobile Number not registered with us please sign up").addClass("error-msg");
                              $('.get_otp').addClass('d-none');
                              $('.register_number').removeClass('d-none');
                             //  Swal.fire({

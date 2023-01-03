@@ -8756,7 +8756,7 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 .otp-grp input.get_otp{
 	float: right;
 }
-.change_number{
+.change_number, .change_number_reg{
 	background: none;
     border: none;
     color: #2874f0;
@@ -8906,4 +8906,7 @@ form .form-control{
 }
 .product-block.product-thumb.transition{
 	max-width: 100%;
+}
+.mb-5px{
+	margin-bottom: 5px !important;
 }
