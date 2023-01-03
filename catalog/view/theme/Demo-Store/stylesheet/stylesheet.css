@@ -7442,7 +7442,7 @@ button.wishlist {
 	width: 30px; text-align: center; line-height: 30px;}
 .res-menu-close > svg {width:12px; height:12px; fill:#0a7ef0; stroke:#0a7ef0; stroke-width:5px;}
 
-.header_top{padding: 15px 0;}
+.header_top{padding: 10px 0;}
 .cmsbanner-block{margin: 20px 0;}
 .cms-inner-block1, .cms-inner-block2 { width: 100%; margin: 0 0 20px 0;}
 .top-links-toggle > svg {width: 20px; height: 20px; fill: #0a7ef0;}
@@ -8567,7 +8567,7 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 		z-index: 100;
 	}
 	#content, .content-top-breadcum{
-		margin-top: 76px;
+		margin-top: 66px;
 	}
 	.image-additional .slider-item{
 		width: 90px;
@@ -8648,7 +8648,33 @@ div#tab-specification .table.table-bordered tbody tr td ul li{
 	#module-0-carousel .product-carousel .slider-item:not(:first-child){
 		margin-left: 10px;
 	}
-	
+	.category_thumb .category_description, .category_thumb .page-title{
+		display: none;
+	}
+	.category_filter .pagination-right label{
+		display: none;
+	}
+	.category_filter .pagination-right{
+		display: flex;
+	}
+	.category_filter .show, .category_filter .show-wrapper, .category_filter .sort-by{
+		margin: 0;
+	}
+	.pagination-right{
+		margin: 10px 0 0;
+	}
+	.product-layout.product-grid{
+		min-height: 320px;
+	}
+	.product-thumb .price{
+		margin: 0 0 10px
+	}
+	.product-block .product-details, .product-thumb .price {
+		text-align: center;
+	}
+	.product_hover_block .action{
+		margin-bottom: 10px;
+	}
 }
 .header_bottom_cover.dnone{
 	display: none;
@@ -8825,6 +8851,32 @@ form .form-control{
 		z-index: 98;
 		position: relative;
 	}
+	.category_list.box .category_img img {
+    	width: 50px;
+	}
+	.category_list.box .view{
+		display: none;
+	}
+	.category_list_carousel.owl-carousel.owl-theme .owl-item{
+		width: 85px !important;
+	}
+	#wdcmstopbanner .one-third {
+		padding: 8px 0px 0px 0px;
+	}
+	.common-home footer {
+		margin-top: 10px;
+	}
+	.col-sm-12.category_list{
+		overflow: auto;
+	}
+	.category_thumb .category_list>ul{
+		display: flex;
+		min-width: max-content;
+	}
+	.category_thumb .category_list>ul .img-thumbnail.text-center {
+		width: 110px;
+		margin-bottom: 8px !important;
+	}
 }
 .table.table-responsive.desktop_view {
     width: 100% !important;
@@ -8841,4 +8893,17 @@ form .form-control{
 }
 .Otp_verification_label{
 	color: #05ad02;
+}
+.product-details .rating{
+	display:none
+}
+.product-thumb h4{
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.product-thumb h4 a{
+	white-space: nowrap;
+}
+.product-block.product-thumb.transition{
+	max-width: 100%;
 }
